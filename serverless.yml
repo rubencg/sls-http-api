@@ -1,0 +1,25 @@
+service: todo-rest-api
+# app and org for use with dashboard.serverless.com
+# app: todo-rest-api
+# org: com.rcardenas
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: dotnetcore3.1
+  lambdaHashingVersion: 20201221
+  profile: serverless-admin
+
+package:
+  individually: true
+
+functions:
+  todo-get:
+    handler: TodoGetHandler::Todo.GetHandler::Handle
+    package:
+      artifact: Todo.Get/bin/Release/netcoreapp3.1/build.zip
+    events:
+      - httpApi: 'GET /todo'
